@@ -40,8 +40,27 @@ autoinstall:
         install: true
     updates: all
     shutdown: reboot
+
+    # Configuração de particionamento para preservar a partição de 1GB
+    storage:
+        layout:
+            name: lvm
+        config:
+            - type: physical
+              id: disk0
+              name: /dev/nvme0n1  # Nome do disco NVMe
+            - type: partition
+              id: partition0
+              device: /dev/nvme0n1
+              preserve: true  # Preserva a partição de 1GB
+            # O Ubuntu irá criar as partições automaticamente para boot, swap e root (/)
+
+    # Comandos a serem executados após a instalação
     runcmd:
         # Baixar e executar o script do GitHub para instalar IntelliJ, VS Code e Java
         - wget -O /tmp/install.sh "https://raw.githubusercontent.com/Ruanrodrigues20/auto-install--ubuntu/main/install.sh"
         - chmod +x /tmp/install.sh
-        - /tmp/install.sh "2024.3.2.2"
+        - /tmp/install.sh
+        
+        # Adicionar o repositório do Flathub
+        - sudo flatpak remote-add --if-not-exists flathub https://flathub.org/repo/flathub.flatpakrepo
