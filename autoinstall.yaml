@@ -1,0 +1,47 @@
+#cloud-config
+autoinstall:
+    version: 1
+    identity:
+        realname: 'Ruan Rodrigues'
+        hostname: ubuntu-rr
+        username: ruan-rodrigues
+        password: '$y$j9T$uhkxlm8nUQaNu.6rl4k2d.$DIldpYy96OHg8lFjfXfc671BZcGWkPOmaDONGAhGSg3'
+    locale: pt_BR.utf8
+    keyboard:
+        layout: br
+    timezone: "America/Sao_Paulo"
+    packages:
+        - libreoffice
+        - gimp
+        - git
+        - maven
+        - gnome-tweaks
+        - neofetch
+        - flatpak
+        - vim
+        - vlc
+        - gnome-software-plugin-flatpak
+        - folder-sushi
+        - tree
+        - firefox
+        - curl
+        - wget
+        - gnome-shell-extension-manager
+        - python3-venv
+        - python3-poetry
+        - python3-pip
+    snaps:
+        - name: spotify
+          channel: stable
+          classic: false
+    codecs:
+        install: true
+    drivers:
+        install: true
+    updates: all
+    shutdown: reboot
+    runcmd:
+        # Baixar e executar o script do GitHub para instalar IntelliJ, VS Code e Java
+        - wget -O /tmp/install.sh "https://raw.githubusercontent.com/Ruanrodrigues20/auto-install--ubuntu/main/install.sh"
+        - chmod +x /tmp/install.sh
+        - /tmp/install.sh "2024.3.2.2"
