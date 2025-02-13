@@ -43,37 +43,3 @@ autoinstall:
     updates: all
     shutdown: reboot
 
-    # Configuração de particionamento manual para SSD com espaço livre
-    storage:
-        layout:
-            name: custom
-            # Apenas criar partições em espaço livre
-            config:
-                - type: physical
-                  id: disk0
-                  name: /dev/nvme0n1  # Nome do disco NVMe
-                - type: partition
-                  id: partition0
-                  device: /dev/nvme0n1
-                  size: 1024MB  # Define o tamanho da partição de 1GB (boot)
-                  flag: boot
-                - type: partition
-                  id: partition1
-                  device: /dev/nvme0n1
-                  size: 2GB  # Defina a swap ou a partição desejada
-                  flag: swap
-                - type: partition
-                  id: partition2
-                  device: /dev/nvme0n1
-                  size: 80%  # O restante será alocado para a partição root
-                  flag: root
-
-    # Comandos a serem executados após a instalação
-    runcmd:
-        # Baixar e executar o script do GitHub para instalar IntelliJ, VS Code e Java
-        - wget -O /tmp/install.sh "https://raw.githubusercontent.com/Ruanrodrigues20/auto-install--ubuntu/main/install.sh"
-        - chmod +x /tmp/install.sh
-        - /tmp/install.sh "2024.3.2.2"
-        
-        # Adicionar o repositório do Flathub
-        - sudo flatpak remote-add --if-not-exists flathub https://flathub.org/repo/flathub.flatpakrepo
