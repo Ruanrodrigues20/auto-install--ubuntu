@@ -1,5 +1,7 @@
 #cloud-config
 autoinstall:
+    source:
+      id: ubuntu-desktop
     version: 1
     identity:
         realname: 'Ruan Rodrigues'
